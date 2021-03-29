@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Währungsrechner</title>  
+	</head>
+	<body>
+		<h1>Währungsrechner</h1>
+		<br/>
+		
+		<form method="get" action="calc">
+			<input type="number" value="{{ srcValue }}" step="0.1" name="srcValue"/>
+			<select name="srcCurrency">
+				<option value="EUR" {% if srcCurrencyBlock['text'] == 'Euro' %} selected {% endif %}>Euro</option>
+				<option value="USD" {% if srcCurrencyBlock['text'] == 'Dollar' %} selected {% endif %}>Dollar</option>
+			</select>
+			<b>&nbsp;&gt;&nbsp;</b>
+			<select name="destCurrency">
+				<option value="EUR" {% if destCurrencyBlock['text'] == 'Euro' %} selected {% endif %}>Euro</option>
+				<option value="USD" {% if destCurrencyBlock['text'] == 'Dollar' %} selected {% endif %}>Dollar</option>
+			</select>
+			<br/><br/>
+			<input type="submit" value="Umrechnen"/>
+		</form>
+		
+		{% block result  %}  {% endblock %}
+	</body>
+</html>
