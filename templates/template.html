@@ -5,8 +5,7 @@
 	</head>
 	<body>
 		<h1>Währungsrechner</h1>
-		<br/>
-		
+		<br/>		
 		<form method="get" action="calc">
 			<input type="number" value="{{ srcValue }}" step="0.1" name="srcValue"/>
 			<select name="srcCurrency">
@@ -23,5 +22,18 @@
 		</form>
 		
 		{% block result  %}  {% endblock %}
+		
+		<div>
+		 	<h2>Umrechnungskurse</h2>
+		 	<p>
+		 	   EURO in US-Dollar - {{ umrechnunskurse["EUR-USD"] }}
+		 	</p>
+		 	<p>
+		 	   US-Dollar in EURO - {{ umrechnunskurse["USD-EUR"] }}
+		 	</p>
+		 	<p>
+		 	   Stand: {{ umrechnunskurse["date"] }}
+		 	</p>
+		</div>
 	</body>
 </html>
