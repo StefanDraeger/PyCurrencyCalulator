@@ -1,10 +1,12 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Währungsrechner</title>  
+		<title>W&auml;hrungsrechner</title>  
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> 
 	</head>
 	<body>
-		<h1>Währungsrechner</h1>
+	    <h1>W&auml;hrungsrechner</h1>
+		<div style="float:left;">
 		<br/>		
 		<form method="get" action="calc">
 			<input type="number" value="{{ srcValue }}" step="0.1" name="srcValue"/>
@@ -35,5 +37,47 @@
 		 	   Stand: {{ umrechnunskurse["date"] }}
 		 	</p>
 		</div>
+		</div>
+		
+		<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+        	['Monat-Jahr', 'Wert'],
+        	
+        	{% for value in historyCurrencys %}
+        	  	  ['{{ value.month }}-{{ value.year }}', {{ value.value }}],	
+      		
+      		{% endfor %}        	
+        ]);
+
+        var options = {
+          title: 'Wechselkurs EURO > US-Dollar ({{historyCurrencys[0].month}}-{{historyCurrencys[0].year}} bis heute)',
+          titlePosition: 'out',
+          curveType: 'none',
+          backgroundColor: '#edf6ff',
+          legend: 'none',
+          colors: ['#E59400'],
+          hAxis: {
+              slantedText: true,
+              slantedTextAngle: 45,
+              gridlines: {count: 7}
+           },
+           vAxis: {
+               format: '#.000$'
+           }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+    
+     <div id="curve_chart" style="width: 550px; height: 300px;float:left;margin-left:35px;"></div>
+     <div style="clear:both;"></div>
+		
 	</body>
 </html>
